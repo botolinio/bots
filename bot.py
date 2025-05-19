@@ -26,4 +26,16 @@ async def dm(ctx, *, message: str):
     except discord.Forbidden:
         await ctx.send('Nie mogę wysłać wiadomości prywatnej (masz je zablokowane).')
 
+@bot.command()
+async def dm2(ctx, *, message: str):
+    await asyncio.sleep(360)
+    try:
+        await ctx.author.send(f'{message}')
+        messages_to_send = textwrap.wrap(message, 145)
+        for chunk in reversed(messages_to_send):
+            await asyncio.sleep(5)
+            await ctx.author.send(chunk)
+    except discord.Forbidden:
+        await ctx.send('Nie mogę wysłać wiadomości prywatnej (masz je zablokowane).')
+
 bot.run(os.getenv("DISCORD_TOKEN"))
